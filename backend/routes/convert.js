@@ -35,7 +35,6 @@ router.get('/convert', async (req, res) => {
       const url = `https://api.frankfurter.app/latest?from=${fromCurrency}&to=${toCurrency}`;
       const response = await axios.get(url);
       rate = response.data.rates[toCurrency];
-      
       // Upsert the rate in the DB
       if (rateDoc) {
         rateDoc.rate = rate;

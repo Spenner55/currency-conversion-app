@@ -32,6 +32,7 @@ router.get('/convert', async (req, res) => {
 
     // 2. If not found or stale, fetch new rate from API
     if (needsUpdate) {
+      console.log('needsUpdate = True');
       const url = `https://api.frankfurter.app/latest?from=${fromCurrency}&to=${toCurrency}`;
       const response = await axios.get(url);
       rate = response.data.rates[toCurrency];
@@ -41,7 +42,11 @@ router.get('/convert', async (req, res) => {
         rateDoc.lastUpdated = now;
         await rateDoc.save();
       } else {
-        await Rate.create({ from: fromCurrency, to: toCurrency, rate, lastUpdated: now });
+        await Rate.create({ from: fromCurrency, to: toCurrency, rate, lastUpdated: now }).then(doc => {
+            console.log('Saved document:', doc);
+          }).catch(err => {
+            console.error('Error saving document:', err);
+          });
       }
     }
 

@@ -2,12 +2,15 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const {logger, logEvents } = require('./middleware/logger');
 const connectDB = require('./db/connect');
 const mongoose = require('mongoose')
 const convertRoute = require('./routes/convert');
 const PORT = process.env.PORT || 5000;
 
 connectDB();
+
+app.use(logger);
 
 app.use(cors());
 app.use(express.json());

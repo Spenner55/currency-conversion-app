@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { convertCurrency } from '../store/currencySlice';
 import CurrencyAutoComplete from './CurrencyAutoComplete';
+import styles from './Public.module.css';
 
 const Public = () => {
     const [amount, setAmount] = useState('');
@@ -17,9 +18,9 @@ const Public = () => {
     };
 
     const content = (
-        <div style={{ maxWidth: "400px", margin: "auto", padding: "20px" }}>
-            <h1>Currency Converter</h1>
-            <form onSubmit={handleSubmit}>
+        <div className={styles.public}>
+            <h1 className={styles.public__title}> Currency Converter </h1>
+            <form className={styles.public__form} onSubmit={handleSubmit}>
                 <div>
                 <input 
                     type="number" 
@@ -43,12 +44,17 @@ const Public = () => {
                         onChange={setTo}
                     />
                 </div>
-                <button type="submit" disabled={loading}>
+                <button 
+                    type="submit" 
+                    className={loading
+                        ? `${styles.public__button} ${styles['public__button--disabled']}`
+                        : styles.public__button
+                    }
+                    disabled={loading}>
                     Convert
                 </button>
             </form>
-            {loading && <p>Converting...</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && <p className={styles.public__error} >{error}</p>}
             {result && (
                 <p>
                 {result.amount} {result.from} = {result.converted.toFixed(2)} {result.to}

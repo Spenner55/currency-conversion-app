@@ -1,0 +1,41 @@
+.public {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+  }
+  
+  .public__title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .public__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .public__button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .public__button--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  .public__error {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .public__error--light {
+    color: #ffcccc;
+  }
+  

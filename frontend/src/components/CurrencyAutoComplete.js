@@ -10,18 +10,17 @@ function CurrencyAutoComplete({ value, onChange, placeholder }) {
   const wrapperRef = useRef(null);
 
   useEffect(() => {
-    if (filter.trim()) {
-      const lowerFilter = filter.toLowerCase();
+    const trimmed = filter.trim().toLowerCase();
+  
+    if (!trimmed) {
+      setFilteredList(currencyList);
+    } else {
       const matches = currencyList.filter(
         (c) =>
-          c.code.toLowerCase().startsWith(lowerFilter) ||
-          c.name.toLowerCase().includes(lowerFilter)
+          c.code.toLowerCase().startsWith(trimmed) ||
+          c.name.toLowerCase().includes(trimmed)
       );
       setFilteredList(matches);
-      setIsOpen(matches.length > 0);
-    } else {
-      setIsOpen(false);
-      setFilteredList([]);
     }
   }, [filter]);
 
@@ -49,25 +48,33 @@ function CurrencyAutoComplete({ value, onChange, placeholder }) {
     setIsOpen(false);
   };
 
+  const handleFocus = () => {
+    if (!filter.trim()) {
+      setFilteredList(currencyList);
+    }
+    setIsOpen(true);
+  };
+
   return (
     <div ref={wrapperRef} className={styles.currencyautocomplete}>
       <input
         type="text"
         placeholder={placeholder}
         value={value}
+        onFocus={handleFocus}
         onChange={handleInputChange}
-        onFocus={() => {
-          if (filter) {
-            setIsOpen(true);
-          }
-        }}
       />
 
       {isOpen && (
-        <ul
-          className={styles.currencyautocomplete__input}
-        >
-          {filteredList.map((currency) => (
+        <ul className={styles.currencyautocomplete__input}>
+        {filteredList.length === 0 ? (
+          <li
+            className={styles.currencyautocomplete__list__message}
+          >
+            No matches found
+          </li>
+        ) : (
+          filteredList.map((currency) => (
             <li
               key={currency.code}
               className={styles.currencyautocomplete__list}
@@ -75,9 +82,10 @@ function CurrencyAutoComplete({ value, onChange, placeholder }) {
             >
               {currency.code} – {currency.name}
             </li>
-          ))}
-        </ul>
-      )}
+          ))
+        )}
+      </ul>
+    )}
     </div>
   );
 }

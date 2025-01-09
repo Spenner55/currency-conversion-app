@@ -6,5 +6,7 @@ const currencyList = [
     { code: 'CAD', name: 'Canadian Dollar' },
   ];
   
+  currencyList.sort((a, b) => a.code.localeCompare(b.code));
+
   export default currencyList;
   

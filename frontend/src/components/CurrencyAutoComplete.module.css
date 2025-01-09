@@ -26,3 +26,14 @@
     border-style: solid;
     border-color: black;
 }
+
+.currencyautocomplete__list__message {
+    padding: 8px;
+    cursor: pointer;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    color: gray;
+    font-style: italic;
+    cursor: not-allowed;
+}

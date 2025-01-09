@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import currencyList from '../api/currencyList';
+import styles from './CurrencyAutoComplete.module.css';
 
 function CurrencyAutoComplete({ value, onChange, placeholder }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +50,7 @@ function CurrencyAutoComplete({ value, onChange, placeholder }) {
   };
 
   return (
-    <div ref={wrapperRef} style={{ position: 'relative' }}>
+    <div ref={wrapperRef} className={styles.currencyautocomplete}>
       <input
         type="text"
         placeholder={placeholder}
@@ -64,29 +65,12 @@ function CurrencyAutoComplete({ value, onChange, placeholder }) {
 
       {isOpen && (
         <ul
-          style={{
-            position: 'absolute',
-            top: '100%',
-            left: 0,
-            backgroundColor: 'white',
-            border: '1px solid #ccc',
-            margin: 0,
-            padding: 0,
-            listStyleType: 'none',
-            width: '100%',
-            maxHeight: '200px',
-            overflowY: 'auto',
-            zIndex: 999,
-          }}
+          className={styles.currencyautocomplete__input}
         >
           {filteredList.map((currency) => (
             <li
               key={currency.code}
-              style={{
-                padding: '8px',
-                cursor: 'pointer',
-                borderBottom: '1px solid #eee',
-              }}
+              className={styles.currencyautocomplete__list}
               onClick={() => handleSelect(currency.code)}
             >
               {currency.code} – {currency.name}

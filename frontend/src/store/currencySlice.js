@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 async function fetchConvertedCurrency({ amount, from, to }) {
   const response = await fetch(
-    `http://currency-conversion-api-4hew/convert?amount=${amount}&from=${from}&to=${to}`
+    `https://currency-conversion-api-4hew/convert?amount=${amount}&from=${from}&to=${to}`
   );
   const data = await response.json();
   return data;

@@ -10,6 +10,8 @@ const corsOptions = require('./config/corsOptions');
 const convertRoute = require('./routes/convertRoute');
 const PORT = process.env.PORT || 5000;
 
+connectDB();
+
 app.use(logger);
 app.use(errorHandler);
 
@@ -18,20 +20,15 @@ app.use(express.json());
 
 app.use('/', convertRoute);
 
-const startServer= async () => {
-  await connectDB();
+mongoose.connection.once('open', () => {
+  console.log('Connected to MongoDB');
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+})
+  
+mongoose.connection.on('error', err => {
+  console.log(err);
+  logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`, 'mongoErrLog.log');
+});
 
-  mongoose.connection.once('open', () => {
-    console.log('Connected to MongoDB');
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-  })
-    
-  mongoose.connection.on('error', err => {
-    console.log(err);
-    logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`, 'mongoErrLog.log');
-  });
-}
-
-startServer();
 
 

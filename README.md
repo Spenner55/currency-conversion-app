@@ -8,6 +8,13 @@ A simple web application that provides up-to-date currency conversion rates usin
 - **Caching Mechanism**: Stores rates in a database to reduce API calls and improve performance.
 - **User-Friendly Interface**: Easy-to-use frontend for quick currency conversions.
 
+## Live Website
+
+https://currency-conversion.onrender.com
+
+### *Note*
+MongoDB and Render.com throttle response times without consistent useage so the website takes roughly a minute to respond to user input/conversions
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) (version 14 or higher)
